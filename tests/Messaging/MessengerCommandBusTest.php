@@ -40,7 +40,7 @@ final class MessengerCommandBusTest extends TestCase
                 new Envelope($command)
             );
 
-        if (!$handle) {
+        if (! $handle) {
             $dispatchMethod->willThrowException(new NoHandlerForMessageException());
         }
 
