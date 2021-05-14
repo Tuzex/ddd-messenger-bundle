@@ -1,0 +1,38 @@
+{
+  "name": "tuzex/ddd-messenger-bundle",
+  "description": "Implementation of DDD (Domain Driven Design) library based on Symfony messenger",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Edo Barnas",
+      "email": "iam@edobarnas.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Tuzex\\Bundle\\Ddd\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tuzex\\Bundle\\Ddd\\Test\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "8.*",
+    "symfony/framework-bundle": "4.3.*|4.4.*|5.*",
+    "symfony/messenger": "4.3.*|4.4.*|5.*",
+    "tuzex/ddd": "^0.3.1"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "0.12.*",
+    "phpstan/phpstan-phpunit": "0.12.*",
+    "phpunit/phpunit": "9.5.*",
+    "symplify/easy-coding-standard": "9.3.*"
+  }
+}
