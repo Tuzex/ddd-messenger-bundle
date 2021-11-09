@@ -10,8 +10,8 @@
         <service id="Tuzex\Timekeeper\TimeService" alias="Tuzex\Timekeeper\SystemTimeService"/>
         <service id="Tuzex\Timekeeper\SystemTimeService"/>
 
-        <service id="Tuzex\Ddd\Domain\Timing\Clock" alias="Tuzex\Ddd\Infrastructure\Domain\Timing\SystemClock"/>
-        <service id="Tuzex\Ddd\Infrastructure\Domain\Timing\SystemClock"/>
+        <service id="Tuzex\Ddd\Domain\Timing\Clock" alias="Tuzex\Ddd\Infrastructure\Domain\Timing\Clock\SystemClock"/>
+        <service id="Tuzex\Ddd\Infrastructure\Domain\Timing\Clock\SystemClock"/>
 
         <service id="Tuzex\Ddd\Application\CommandBus" alias="Tuzex\Bundle\Ddd\Messaging\MessengerCommandBus"/>
         <service id="Tuzex\Bundle\Ddd\Messaging\MessengerCommandBus">
@@ -23,10 +23,10 @@
             <argument type="service" id="tuzex.ddd.domain_event_bus"/>
         </service>
 
-        <service id="Tuzex\Ddd\Application\Service\CommandsSpooler" alias="Tuzex\Ddd\Infrastructure\Messaging\InMemoryCommandsSpooler"/>
-        <service id="Tuzex\Ddd\Infrastructure\Messaging\InMemoryCommandsSpooler"/>
+        <service id="Tuzex\Ddd\Application\Service\CommandsSpooler" alias="Tuzex\Ddd\Application\Service\DirectCommandsSpooler"/>
+        <service id="Tuzex\Ddd\Application\Service\DirectCommandsSpooler"/>
 
-        <service id="Tuzex\Ddd\Application\Service\DomainEventsEmitter" alias="Tuzex\Ddd\Infrastructure\Messaging\InMemoryDomainEventsEmitter"/>
-        <service id="Tuzex\Ddd\Infrastructure\Messaging\InMemoryDomainEventsEmitter"/>
+        <service id="Tuzex\Ddd\Application\Service\DomainEventsPublisher" alias="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>
+        <service id="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>
     </services>
 </container>
