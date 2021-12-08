@@ -25,8 +25,8 @@
   },
   "require": {
     "php": "8.*",
-    "symfony/framework-bundle": "4.3.*|4.4.*|5.*",
-    "symfony/messenger": "4.3.*|4.4.*|5.*",
+    "symfony/framework-bundle": "5.*|6.*",
+    "symfony/messenger": "5.*|6.*",
     "tuzex/ddd": "0.4.*"
   },
   "require-dev": {
