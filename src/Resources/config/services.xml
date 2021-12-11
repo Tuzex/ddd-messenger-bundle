@@ -23,8 +23,8 @@
             <argument type="service" id="tuzex.ddd.domain_event_bus"/>
         </service>
 
-        <service id="Tuzex\Ddd\Application\Service\CommandsSpooler" alias="Tuzex\Ddd\Application\Service\DirectCommandsSpooler"/>
-        <service id="Tuzex\Ddd\Application\Service\DirectCommandsSpooler"/>
+        <service id="Tuzex\Ddd\Application\Service\CommandsDispatcher" alias="Tuzex\Ddd\Application\Service\DirectCommandsDispatcher"/>
+        <service id="Tuzex\Ddd\Application\Service\DirectCommandsDispatcher"/>
 
         <service id="Tuzex\Ddd\Application\Service\DomainEventsPublisher" alias="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>
         <service id="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>

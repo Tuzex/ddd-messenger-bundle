@@ -13,8 +13,8 @@ use Tuzex\Ddd\Application\CommandBus;
 use Tuzex\Ddd\Application\DomainEventBus;
 use Tuzex\Ddd\Application\Entrypoint\CommandHandler;
 use Tuzex\Ddd\Application\Entrypoint\DomainEventHandler;
-use Tuzex\Ddd\Application\Service\CommandsSpooler;
-use Tuzex\Ddd\Application\Service\DirectCommandsSpooler;
+use Tuzex\Ddd\Application\Service\CommandsDispatcher;
+use Tuzex\Ddd\Application\Service\DirectCommandsDispatcher;
 use Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher;
 use Tuzex\Ddd\Application\Service\DomainEventsPublisher;
 
@@ -131,8 +131,8 @@ final class DddMessengerExtensionTest extends TestCase
             'domain-event-bus' => [
                 'serviceId' => MessengerDomainEventBus::class,
             ],
-            'commands-spooler' => [
-                'serviceId' => DirectCommandsSpooler::class,
+            'commands-dispatcher' => [
+                'serviceId' => DirectCommandsDispatcher::class,
             ],
             'domain-events-publisher' => [
                 'serviceId' => DirectDomainEventsPublisher::class,
@@ -154,7 +154,7 @@ final class DddMessengerExtensionTest extends TestCase
     {
         $serviceAliases = [
             CommandBus::class => MessengerCommandBus::class,
-            CommandsSpooler::class => DirectCommandsSpooler::class,
+            CommandsDispatcher::class => DirectCommandsDispatcher::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
             DomainEventsPublisher::class => DirectDomainEventsPublisher::class,
         ];
