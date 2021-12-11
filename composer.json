@@ -11,6 +11,10 @@
   ],
   "minimum-stability": "dev",
   "config": {
+    "platform": {
+      "php": "8.1",
+      "ext-intl": "1"
+    },
     "sort-packages": true
   },
   "autoload": {
@@ -24,7 +28,7 @@
     }
   },
   "require": {
-    "php": "8.*",
+    "php": "^8.1",
     "symfony/framework-bundle": "5.*|6.*",
     "symfony/messenger": "5.*|6.*",
     "tuzex/ddd": "0.4.*"
