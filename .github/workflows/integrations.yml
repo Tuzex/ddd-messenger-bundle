@@ -26,11 +26,11 @@ jobs:
         run: composer install --no-progress
 
       - name: Generate clover.xml
-        run: vendor/bin/phpunit -c phpunit.xml --coverage-clover clover.xml
+        run: vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
 
       - name: Upload to Coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          composer global require cedx/coveralls
-          coveralls clover.xml
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
