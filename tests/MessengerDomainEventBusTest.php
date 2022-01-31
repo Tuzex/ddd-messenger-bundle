@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tuzex\Bundle\Ddd\Test\Messaging;
+namespace Tuzex\Bundle\Ddd\Test\Messenger;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Tuzex\Bundle\Ddd\Messaging\MessengerDomainEventBus;
-use Tuzex\Ddd\Domain\DomainEvent;
+use Tuzex\Bundle\Ddd\Messenger\MessengerDomainEventBus;
+use Tuzex\Ddd\Core\Domain\DomainEvent;
 
 final class MessengerDomainEventBusTest extends TestCase
 {
@@ -23,7 +23,7 @@ final class MessengerDomainEventBusTest extends TestCase
     private function mockMessageBus(DomainEvent $domainEvent): MessageBusInterface
     {
         $messageBus = $this->createMock(MessageBusInterface::class);
-        $dispatchMethod = $messageBus->expects($this->once())
+        $messageBus->expects($this->once())
             ->method('dispatch')
             ->willReturn(
                 new Envelope($domainEvent)

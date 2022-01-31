@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Tuzex\Bundle\Ddd\Test\DependencyInjection;
+namespace Tuzex\Bundle\Ddd\Test\Messenger\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Tuzex\Bundle\Ddd\DependencyInjection\DddMessengerExtension;
-use Tuzex\Bundle\Ddd\Messaging\MessengerCommandBus;
-use Tuzex\Bundle\Ddd\Messaging\MessengerDomainEventBus;
-use Tuzex\Ddd\Application\CommandBus;
-use Tuzex\Ddd\Application\DomainEventBus;
-use Tuzex\Ddd\Application\Entrypoint\CommandHandler;
-use Tuzex\Ddd\Application\Entrypoint\DomainEventHandler;
-use Tuzex\Ddd\Application\Service\CommandsDispatcher;
-use Tuzex\Ddd\Application\Service\DirectCommandsDispatcher;
-use Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher;
-use Tuzex\Ddd\Application\Service\DomainEventsPublisher;
+use Tuzex\Bundle\Ddd\Messenger\DependencyInjection\DddMessengerExtension;
+use Tuzex\Bundle\Ddd\Messenger\MessengerDomainCommandBus;
+use Tuzex\Bundle\Ddd\Messenger\MessengerDomainEventBus;
+use Tuzex\Ddd\Core\Application\Domain\DomainCommandHandler;
+use Tuzex\Ddd\Core\Application\Domain\DomainEventHandler;
+use Tuzex\Ddd\Core\Application\DomainCommandBus;
+use Tuzex\Ddd\Core\Application\DomainEventBus;
+use Tuzex\Ddd\Core\Application\Service\DirectDomainCommandsDispatcher;
+use Tuzex\Ddd\Core\Application\Service\DirectDomainEventsPublisher;
+use Tuzex\Ddd\Core\Application\Service\DomainCommandsDispatcher;
+use Tuzex\Ddd\Core\Application\Service\DomainEventsPublisher;
 
 final class DddMessengerExtensionTest extends TestCase
 {
@@ -54,8 +54,8 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideBusIds(): array
     {
         return [
-            'command-bus' => [
-                'busId' => 'tuzex.ddd.command_bus',
+            'domain-command-bus' => [
+                'busId' => 'tuzex.ddd.domain_command_bus',
             ],
             'domain-event-bus' => [
                 'busId' => 'tuzex.ddd.domain_event_bus',
@@ -92,11 +92,11 @@ final class DddMessengerExtensionTest extends TestCase
     {
         return [
             'command-handler' => [
-                'id' => CommandHandler::class,
+                'id' => DomainCommandHandler::class,
                 'tags' => [
-                    'tuzex.ddd.command_handler' => [],
+                    'tuzex.ddd.domain_command_handler' => [],
                     'messenger.message_handler' => [
-                        'bus' => 'tuzex.ddd.command_bus',
+                        'bus' => 'tuzex.ddd.domain_command_bus',
                     ],
                 ],
             ],
@@ -125,14 +125,14 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideServiceIds(): array
     {
         return [
-            'command-bus' => [
-                'serviceId' => MessengerCommandBus::class,
+            'domain-command-bus' => [
+                'serviceId' => MessengerDomainCommandBus::class,
             ],
             'domain-event-bus' => [
                 'serviceId' => MessengerDomainEventBus::class,
             ],
-            'commands-dispatcher' => [
-                'serviceId' => DirectCommandsDispatcher::class,
+            'domain-commands-dispatcher' => [
+                'serviceId' => DirectDomainCommandsDispatcher::class,
             ],
             'domain-events-publisher' => [
                 'serviceId' => DirectDomainEventsPublisher::class,
@@ -153,8 +153,8 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideServiceAliases(): iterable
     {
         $serviceAliases = [
-            CommandBus::class => MessengerCommandBus::class,
-            CommandsDispatcher::class => DirectCommandsDispatcher::class,
+            DomainCommandBus::class => MessengerDomainCommandBus::class,
+            DomainCommandsDispatcher::class => DirectDomainCommandsDispatcher::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
             DomainEventsPublisher::class => DirectDomainEventsPublisher::class,
         ];

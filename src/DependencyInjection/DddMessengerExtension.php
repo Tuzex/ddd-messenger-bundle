@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tuzex\Bundle\Ddd\DependencyInjection;
+namespace Tuzex\Bundle\Ddd\Messenger\DependencyInjection;
 
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
@@ -10,8 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Tuzex\Ddd\Application\Entrypoint\CommandHandler;
-use Tuzex\Ddd\Application\Entrypoint\DomainEventHandler;
+use Tuzex\Ddd\Core\Application\Domain\DomainCommandHandler;
+use Tuzex\Ddd\Core\Application\Domain\DomainEventHandler;
 
 final class DddMessengerExtension extends Extension implements PrependExtensionInterface
 {
@@ -29,9 +29,9 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
 
         $containerBuilder->prependExtensionConfig('framework', [
             'messenger' => [
-                'default_bus' => $configs['messenger']['default_bus'] ?? 'tuzex.ddd.command_bus',
+                'default_bus' => $configs['messenger']['default_bus'] ?? 'tuzex.ddd.domain_command_bus',
                 'buses' => [
-                    'tuzex.ddd.command_bus' => [],
+                    'tuzex.ddd.domain_command_bus' => [],
                     'tuzex.ddd.domain_event_bus' => [
                         'default_middleware' => 'allow_no_handlers',
                     ],
@@ -39,10 +39,10 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
             ],
         ]);
 
-        $containerBuilder->registerForAutoconfiguration(CommandHandler::class)
-            ->addTag('tuzex.ddd.command_handler')
+        $containerBuilder->registerForAutoconfiguration(DomainCommandHandler::class)
+            ->addTag('tuzex.ddd.domain_command_handler')
             ->addTag('messenger.message_handler', [
-                'bus' => 'tuzex.ddd.command_bus',
+                'bus' => 'tuzex.ddd.domain_command_bus',
             ]);
 
         $containerBuilder->registerForAutoconfiguration(DomainEventHandler::class)
