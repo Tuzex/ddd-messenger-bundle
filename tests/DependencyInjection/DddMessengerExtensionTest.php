@@ -7,8 +7,6 @@ namespace Tuzex\Bundle\Ddd\Test\Messenger\DependencyInjection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Tuzex\Bundle\Ddd\Messenger\DependencyInjection\DddMessengerExtension;
-use Tuzex\Bundle\Ddd\Messenger\MessengerDomainCommandBus;
-use Tuzex\Bundle\Ddd\Messenger\MessengerDomainEventBus;
 use Tuzex\Ddd\Core\Application\Domain\DomainCommandHandler;
 use Tuzex\Ddd\Core\Application\Domain\DomainEventHandler;
 use Tuzex\Ddd\Core\Application\DomainCommandBus;
@@ -17,6 +15,8 @@ use Tuzex\Ddd\Core\Application\Service\DirectDomainCommandsDispatcher;
 use Tuzex\Ddd\Core\Application\Service\DirectDomainEventsPublisher;
 use Tuzex\Ddd\Core\Application\Service\DomainCommandsDispatcher;
 use Tuzex\Ddd\Core\Application\Service\DomainEventsPublisher;
+use Tuzex\Ddd\Messenger\MessengerDomainCommandBus;
+use Tuzex\Ddd\Messenger\MessengerDomainEventBus;
 
 final class DddMessengerExtensionTest extends TestCase
 {
