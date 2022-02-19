@@ -122,22 +122,20 @@ final class DddMessengerExtensionTest extends TestCase
         $this->assertTrue($this->containerBuilder->hasDefinition($serviceId));
     }
 
-    public function provideServiceIds(): array
+    public function provideServiceIds(): iterable
     {
-        return [
-            'clock' => [
-                'serviceId' => SystemClock::class,
-            ],
-            'domain-command-bus' => [
-                'serviceId' => MessengerDomainCommandBus::class,
-            ],
-            'domain-event-bus' => [
-                'serviceId' => MessengerDomainEventBus::class,
-            ],
-            'time-service' => [
-                'serviceId' => SystemTimeService::class,
-            ]
+        $serviceIds = [
+            'clock' => SystemClock::class,
+            'domain-command-bus' => MessengerDomainCommandBus::class,
+            'domain-event-bus' => MessengerDomainEventBus::class,
+            'time-service' => SystemTimeService::class,
         ];
+
+        foreach ($serviceIds as $serviceAlias => $serviceId) {
+            yield $serviceAlias => [
+                'serviceId' => $serviceId,
+            ];
+        }
     }
 
     /**
