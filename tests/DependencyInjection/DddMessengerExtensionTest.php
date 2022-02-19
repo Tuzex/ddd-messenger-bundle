@@ -54,10 +54,10 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideBusIds(): array
     {
         return [
-            'domain-command-bus' => [
+            'domainCommandBus' => [
                 'busId' => 'tuzex.ddd.domain_command_bus',
             ],
-            'domain-event-bus' => [
+            'domainEventBus' => [
                 'busId' => 'tuzex.ddd.domain_event_bus',
             ],
         ];
@@ -91,7 +91,7 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideHandlerSettings(): array
     {
         return [
-            'command-handler' => [
+            'commandHandler' => [
                 'id' => DomainCommandHandler::class,
                 'tags' => [
                     'tuzex.ddd.domain_command_handler' => [],
@@ -100,7 +100,7 @@ final class DddMessengerExtensionTest extends TestCase
                     ],
                 ],
             ],
-            'domain-event-handler' => [
+            'domainEventHandler' => [
                 'id' => DomainEventHandler::class,
                 'tags' => [
                     'tuzex.ddd.domain_event_handler' => [],
@@ -126,9 +126,9 @@ final class DddMessengerExtensionTest extends TestCase
     {
         $serviceIds = [
             'clock' => SystemClock::class,
-            'domain-command-bus' => MessengerDomainCommandBus::class,
-            'domain-event-bus' => MessengerDomainEventBus::class,
-            'time-service' => SystemTimeService::class,
+            'domainCommandBus' => MessengerDomainCommandBus::class,
+            'domainEventBus' => MessengerDomainEventBus::class,
+            'timeService' => SystemTimeService::class,
         ];
 
         foreach ($serviceIds as $serviceAlias => $serviceId) {
