@@ -10,8 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Tuzex\Ddd\Core\Application\Domain\DomainCommandHandler;
-use Tuzex\Ddd\Core\Application\Domain\DomainEventHandler;
+use Tuzex\Ddd\Application\Domain\DomainCommandHandler;
+use Tuzex\Ddd\Application\Domain\DomainEventHandler;
 
 final class DddMessengerExtension extends Extension implements PrependExtensionInterface
 {

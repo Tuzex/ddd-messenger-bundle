@@ -10,23 +10,23 @@
         <service id="Tuzex\Timekeeper\TimeService" alias="Tuzex\Timekeeper\SystemTimeService"/>
         <service id="Tuzex\Timekeeper\SystemTimeService"/>
 
-        <service id="Tuzex\Ddd\Timing\Domain\Clock" alias="Tuzex\Ddd\Timing\Infrastructure\Domain\Clock\SystemClock"/>
-        <service id="Tuzex\Ddd\Timing\Infrastructure\Domain\Clock\SystemClock"/>
+        <service id="Tuzex\Ddd\Domain\Clock" alias="Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock"/>
+        <service id="Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock"/>
 
-        <service id="Tuzex\Ddd\Core\Application\DomainCommandBus" alias="Tuzex\Ddd\Messenger\MessengerDomainCommandBus"/>
+        <service id="Tuzex\Ddd\Application\DomainCommandBus" alias="Tuzex\Ddd\Messenger\MessengerDomainCommandBus"/>
         <service id="Tuzex\Ddd\Messenger\MessengerDomainCommandBus">
             <argument type="service" id="tuzex.ddd.domain_command_bus"/>
         </service>
 
-        <service id="Tuzex\Ddd\Core\Application\DomainEventBus" alias="Tuzex\Ddd\Messenger\MessengerDomainEventBus"/>
+        <service id="Tuzex\Ddd\Application\DomainEventBus" alias="Tuzex\Ddd\Messenger\MessengerDomainEventBus"/>
         <service id="Tuzex\Ddd\Messenger\MessengerDomainEventBus">
             <argument type="service" id="tuzex.ddd.domain_event_bus"/>
         </service>
 
-        <service id="Tuzex\Ddd\Core\Application\Service\DomainCommandsDispatcher" alias="Tuzex\Ddd\Core\Application\Service\DirectDomainCommandsDispatcher"/>
-        <service id="Tuzex\Ddd\Core\Application\Service\DirectDomainCommandsDispatcher"/>
+        <service id="Tuzex\Ddd\Application\Service\DomainCommandsDispatcher" alias="Tuzex\Ddd\Application\Service\DirectDomainCommandsDispatcher"/>
+        <service id="Tuzex\Ddd\Application\Service\DirectDomainCommandsDispatcher"/>
 
-        <service id="Tuzex\Ddd\Core\Application\Service\DomainEventsPublisher" alias="Tuzex\Ddd\Core\Application\Service\DirectDomainEventsPublisher"/>
-        <service id="Tuzex\Ddd\Core\Application\Service\DirectDomainEventsPublisher"/>
+        <service id="Tuzex\Ddd\Application\Service\DomainEventsPublisher" alias="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>
+        <service id="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>
     </services>
 </container>

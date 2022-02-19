@@ -7,16 +7,18 @@ namespace Tuzex\Bundle\Ddd\Test\Messenger\DependencyInjection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Tuzex\Bundle\Ddd\Messenger\DependencyInjection\DddMessengerExtension;
-use Tuzex\Ddd\Core\Application\Domain\DomainCommandHandler;
-use Tuzex\Ddd\Core\Application\Domain\DomainEventHandler;
-use Tuzex\Ddd\Core\Application\DomainCommandBus;
-use Tuzex\Ddd\Core\Application\DomainEventBus;
-use Tuzex\Ddd\Core\Application\Service\DirectDomainCommandsDispatcher;
-use Tuzex\Ddd\Core\Application\Service\DirectDomainEventsPublisher;
-use Tuzex\Ddd\Core\Application\Service\DomainCommandsDispatcher;
-use Tuzex\Ddd\Core\Application\Service\DomainEventsPublisher;
+use Tuzex\Ddd\Application\Domain\DomainCommandHandler;
+use Tuzex\Ddd\Application\Domain\DomainEventHandler;
+use Tuzex\Ddd\Application\DomainCommandBus;
+use Tuzex\Ddd\Application\DomainEventBus;
+use Tuzex\Ddd\Domain\Clock;
+use Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock;
+use Tuzex\Ddd\Application\Service\DomainCommandsDispatcher;
+use Tuzex\Ddd\Application\Service\DomainEventsPublisher;
 use Tuzex\Ddd\Messenger\MessengerDomainCommandBus;
 use Tuzex\Ddd\Messenger\MessengerDomainEventBus;
+use Tuzex\Timekeeper\SystemTimeService;
+use Tuzex\Timekeeper\TimeService;
 
 final class DddMessengerExtensionTest extends TestCase
 {
@@ -125,15 +127,18 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideServiceIds(): array
     {
         return [
+            'clock' => [
+                'serviceId' => SystemClock::class,
+            ],
             'domain-command-bus' => [
                 'serviceId' => MessengerDomainCommandBus::class,
             ],
             'domain-event-bus' => [
                 'serviceId' => MessengerDomainEventBus::class,
             ],
-            'domain-commands-dispatcher' => [
-                'serviceId' => DirectDomainCommandsDispatcher::class,
-            ],
+            'time-service' => [
+                'serviceId' => SystemTimeService::class,
+            ]
             'domain-events-publisher' => [
                 'serviceId' => DirectDomainEventsPublisher::class,
             ],
@@ -153,10 +158,11 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideServiceAliases(): iterable
     {
         $serviceAliases = [
+            Clock::class => SystemClock::class,
             DomainCommandBus::class => MessengerDomainCommandBus::class,
             DomainCommandsDispatcher::class => DirectDomainCommandsDispatcher::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
-            DomainEventsPublisher::class => DirectDomainEventsPublisher::class,
+            TimeService::class => SystemTimeService::class,
         ];
 
         foreach ($serviceAliases as $serviceAlias => $serviceId) {
