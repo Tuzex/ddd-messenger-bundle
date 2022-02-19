@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tuzex\Bundle\Ddd\Test\Messenger\DependencyInjection;
+namespace Tuzex\Bundle\Ddd\Messenger\Test\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
