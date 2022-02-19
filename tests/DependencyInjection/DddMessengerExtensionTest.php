@@ -13,8 +13,6 @@ use Tuzex\Ddd\Application\DomainCommandBus;
 use Tuzex\Ddd\Application\DomainEventBus;
 use Tuzex\Ddd\Domain\Clock;
 use Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock;
-use Tuzex\Ddd\Application\Service\DomainCommandsDispatcher;
-use Tuzex\Ddd\Application\Service\DomainEventsPublisher;
 use Tuzex\Ddd\Messenger\MessengerDomainCommandBus;
 use Tuzex\Ddd\Messenger\MessengerDomainEventBus;
 use Tuzex\Timekeeper\SystemTimeService;
@@ -139,9 +137,6 @@ final class DddMessengerExtensionTest extends TestCase
             'time-service' => [
                 'serviceId' => SystemTimeService::class,
             ]
-            'domain-events-publisher' => [
-                'serviceId' => DirectDomainEventsPublisher::class,
-            ],
         ];
     }
 
@@ -160,7 +155,6 @@ final class DddMessengerExtensionTest extends TestCase
         $serviceAliases = [
             Clock::class => SystemClock::class,
             DomainCommandBus::class => MessengerDomainCommandBus::class,
-            DomainCommandsDispatcher::class => DirectDomainCommandsDispatcher::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
             TimeService::class => SystemTimeService::class,
         ];

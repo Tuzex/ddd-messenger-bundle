@@ -22,11 +22,5 @@
         <service id="Tuzex\Ddd\Messenger\MessengerDomainEventBus">
             <argument type="service" id="tuzex.ddd.domain_event_bus"/>
         </service>
-
-        <service id="Tuzex\Ddd\Application\Service\DomainCommandsDispatcher" alias="Tuzex\Ddd\Application\Service\DirectDomainCommandsDispatcher"/>
-        <service id="Tuzex\Ddd\Application\Service\DirectDomainCommandsDispatcher"/>
-
-        <service id="Tuzex\Ddd\Application\Service\DomainEventsPublisher" alias="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>
-        <service id="Tuzex\Ddd\Application\Service\DirectDomainEventsPublisher"/>
     </services>
 </container>
