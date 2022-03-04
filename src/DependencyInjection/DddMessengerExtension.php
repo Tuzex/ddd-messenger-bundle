@@ -22,12 +22,36 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
         $this->fileLocator = new FileLocator(__DIR__.'/../Resources/config');
     }
 
-    public function prepend(ContainerBuilder $containerBuilder): void
+    public function prepend(ContainerBuilder $container): void
+    {
+        $this->setUpMessengerBuses($container);
+        $this->setUpDoctrineTypes($container);
+
+        $container->registerForAutoconfiguration(DomainCommandHandler::class)
+            ->addTag('tuzex.ddd.domain_command_handler')
+            ->addTag('messenger.message_handler', [
+                'bus' => 'tuzex.ddd.domain_command_bus',
+            ]);
+
+        $container->registerForAutoconfiguration(DomainEventHandler::class)
+            ->addTag('tuzex.ddd.domain_event_handler')
+            ->addTag('messenger.message_handler', [
+                'bus' => 'tuzex.ddd.domain_event_bus',
+            ]);
+    }
+
+    public function load(array $configs, ContainerBuilder $container): void
+    {
+        $loader = new XmlFileLoader($container, $this->fileLocator);
+        $loader->load('services.xml');
+    }
+
+    private function setUpMessengerBuses(ContainerBuilder $container): void
     {
         $configuration = new Configuration(false);
-        $configs = $this->processConfiguration($configuration, $containerBuilder->getExtensionConfig('framework'));
+        $configs = $this->processConfiguration($configuration, $container->getExtensionConfig('framework'));
 
-        $containerBuilder->prependExtensionConfig('framework', [
+        $container->prependExtensionConfig('framework', [
             'messenger' => [
                 'default_bus' => $configs['messenger']['default_bus'] ?? 'tuzex.ddd.domain_command_bus',
                 'buses' => [
@@ -38,23 +62,17 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
                 ],
             ],
         ]);
-
-        $containerBuilder->registerForAutoconfiguration(DomainCommandHandler::class)
-            ->addTag('tuzex.ddd.domain_command_handler')
-            ->addTag('messenger.message_handler', [
-                'bus' => 'tuzex.ddd.domain_command_bus',
-            ]);
-
-        $containerBuilder->registerForAutoconfiguration(DomainEventHandler::class)
-            ->addTag('tuzex.ddd.domain_event_handler')
-            ->addTag('messenger.message_handler', [
-                'bus' => 'tuzex.ddd.domain_event_bus',
-            ]);
     }
 
-    public function load(array $configs, ContainerBuilder $containerBuilder): void
+    private function setUpDoctrineTypes(ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($containerBuilder, $this->fileLocator);
-        $loader->load('services.xml');
+        $container->prependExtensionConfig('doctrine', [
+            'dbal' => [
+                'types' => [
+                    'date_time' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Orm\Type\DateTimeType',
+                    'instant' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Orm\Type\InstantType',
+                ]
+            ],
+        ]);
     }
 }
