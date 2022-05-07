@@ -12,7 +12,9 @@ use Tuzex\Ddd\Application\Domain\DomainEventHandler;
 use Tuzex\Ddd\Application\DomainCommandBus;
 use Tuzex\Ddd\Application\DomainEventBus;
 use Tuzex\Ddd\Domain\Clock;
+use Tuzex\Ddd\Domain\Identifier\UniversalIds;
 use Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock;
+use Tuzex\Ddd\Infrastructure\Domain\Identifier\SymfonyUuidFactory;
 use Tuzex\Ddd\Messenger\MessengerDomainCommandBus;
 use Tuzex\Ddd\Messenger\MessengerDomainEventBus;
 use Tuzex\Timekeeper\SystemTimeService;
@@ -156,6 +158,7 @@ final class DddMessengerExtensionTest extends TestCase
     {
         $serviceIds = [
             'clock' => SystemClock::class,
+            'universalIds' => SymfonyUuidFactory::class,
             'domainCommandBus' => MessengerDomainCommandBus::class,
             'domainEventBus' => MessengerDomainEventBus::class,
             'timeService' => SystemTimeService::class,
@@ -182,6 +185,7 @@ final class DddMessengerExtensionTest extends TestCase
     {
         $serviceAliases = [
             Clock::class => SystemClock::class,
+            UniversalIds::class => SymfonyUuidFactory::class,
             DomainCommandBus::class => MessengerDomainCommandBus::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
             TimeService::class => SystemTimeService::class,
