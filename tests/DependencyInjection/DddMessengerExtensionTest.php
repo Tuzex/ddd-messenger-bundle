@@ -64,6 +64,36 @@ final class DddMessengerExtensionTest extends TestCase
     }
 
     /**
+     * @dataProvider provideTypeDefinitions
+     */
+    public function testItRegistersExpectedTypes(string $typeName, string $typeClass): void
+    {
+        $this->dddExtension->prepend($this->containerBuilder);
+        $registeredTypes = $this->resolveDoctrineConfig()['dbal']['types'];
+
+        $this->assertArrayHasKey($typeName, $registeredTypes);
+        $this->assertContains($typeClass, $registeredTypes);
+    }
+
+    public function provideTypeDefinitions(): array
+    {
+        return [
+            'instantType' => [
+                'typeName' => 'tuzex.instant',
+                'typeClass' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\InstantType',
+            ],
+            'dateTimeType' => [
+                'typeName' => 'tuzex.date_time',
+                'typeClass' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\DateTime\DateTimeType',
+            ],
+            'universalIdType' => [
+                'typeName' => 'tuzex.uid',
+                'typeClass' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\Identifier\UniversalIdType',
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider provideHandlerSettings
      */
     public function testItRegistersAutoconfigurationOfHandlers(string $id): void
@@ -168,6 +198,11 @@ final class DddMessengerExtensionTest extends TestCase
     private function resolveMessengerConfig(): array
     {
         return $this->resolveFrameworkConfig()['messenger'];
+    }
+
+    private function resolveDoctrineConfig(): array
+    {
+        return $this->containerBuilder->getExtensionConfig('doctrine')[0];
     }
 
     private function resolveFrameworkConfig(): array
