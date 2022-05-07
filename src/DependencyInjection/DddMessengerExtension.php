@@ -26,18 +26,7 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
     {
         $this->setUpMessengerBuses($container);
         $this->setUpDoctrineTypes($container);
-
-        $container->registerForAutoconfiguration(DomainCommandHandler::class)
-            ->addTag('tuzex.ddd.domain_command_handler')
-            ->addTag('messenger.message_handler', [
-                'bus' => 'tuzex.ddd.domain_command_bus',
-            ]);
-
-        $container->registerForAutoconfiguration(DomainEventHandler::class)
-            ->addTag('tuzex.ddd.domain_event_handler')
-            ->addTag('messenger.message_handler', [
-                'bus' => 'tuzex.ddd.domain_event_bus',
-            ]);
+        $this->registerHandlersForAutoconfiguration($container);
     }
 
     public function load(array $configs, ContainerBuilder $container): void
@@ -74,5 +63,20 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
                 ],
             ],
         ]);
+    }
+
+    private function registerHandlersForAutoconfiguration(ContainerBuilder $container): void
+    {
+        $container->registerForAutoconfiguration(DomainCommandHandler::class)
+            ->addTag('tuzex.ddd.domain_command_handler')
+            ->addTag('messenger.message_handler', [
+                'bus' => 'tuzex.ddd.domain_command_bus',
+            ]);
+
+        $container->registerForAutoconfiguration(DomainEventHandler::class)
+            ->addTag('tuzex.ddd.domain_event_handler')
+            ->addTag('messenger.message_handler', [
+                'bus' => 'tuzex.ddd.domain_event_bus',
+            ]);
     }
 }
