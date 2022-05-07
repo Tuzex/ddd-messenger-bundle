@@ -58,8 +58,9 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
         $container->prependExtensionConfig('doctrine', [
             'dbal' => [
                 'types' => [
-                    'date_time' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Orm\Type\DateTimeType',
-                    'instant' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Orm\Type\InstantType',
+                    'tuzex.instant' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\InstantType',
+                    'tuzex.date_time' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\DateTime\DateTimeType',
+                    'tuzex.uid' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\Identifier\UniversalIdType',
                 ],
             ],
         ]);
