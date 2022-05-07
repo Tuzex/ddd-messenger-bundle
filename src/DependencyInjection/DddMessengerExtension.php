@@ -71,7 +71,7 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
                 'types' => [
                     'date_time' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Orm\Type\DateTimeType',
                     'instant' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Orm\Type\InstantType',
-                ]
+                ],
             ],
         ]);
     }
