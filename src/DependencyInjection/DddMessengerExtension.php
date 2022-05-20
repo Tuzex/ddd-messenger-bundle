@@ -60,7 +60,7 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
                 'types' => [
                     'tuzex.instant' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\InstantType',
                     'tuzex.date_time' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\DateTime\DateTimeType',
-                    'tuzex.uid' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\Identifier\UniversalIdType',
+                    'tuzex.uid' => 'Tuzex\Ddd\Infrastructure\Persistence\Doctrine\Dbal\Type\Id\UniversalIdType',
                 ],
             ],
         ]);

@@ -13,9 +13,9 @@
         <service id="Tuzex\Ddd\Domain\Clock" alias="Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock"/>
         <service id="Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock"/>
 
-        <service id="Tuzex\Ddd\Domain\Identifiers" alias="Tuzex\Ddd\Domain\Identifier\UniversalIds"/>
-        <service id="Tuzex\Ddd\Domain\Identifier\UniversalIds" alias="Tuzex\Ddd\Infrastructure\Domain\Identifier\SymfonyUuidFactory"/>
-        <service id="Tuzex\Ddd\Infrastructure\Domain\Identifier\SymfonyUuidFactory"/>
+        <service id="Tuzex\Ddd\Domain\Identifiers" alias="Tuzex\Ddd\Domain\Id\UniversalIds"/>
+        <service id="Tuzex\Ddd\Domain\Id\UniversalIds" alias="Tuzex\Ddd\Infrastructure\Domain\Id\SymfonyUuidFactory"/>
+        <service id="Tuzex\Ddd\Infrastructure\Domain\Id\SymfonyUuidFactory"/>
 
         <service id="Tuzex\Ddd\Application\DomainCommandBus" alias="Tuzex\Ddd\Messenger\MessengerDomainCommandBus"/>
         <service id="Tuzex\Ddd\Messenger\MessengerDomainCommandBus">
