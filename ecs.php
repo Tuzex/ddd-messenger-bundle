@@ -3,11 +3,12 @@
 declare(strict_types=1);
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
+return static function (ECSConfig $ecsConfig): void {
+    $parameters = $ecsConfig->parameters();
     $parameters->set(Option::PATHS, [
         __DIR__ . '/src',
         __DIR__ . '/tests',
@@ -17,8 +18,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         PhpCsFixer\Fixer\Basic\BracesFixer::class => null,
     ]);
 
-    $containerConfigurator->import(SetList::COMMON);
-    $containerConfigurator->import(SetList::CLEAN_CODE);
-    $containerConfigurator->import(SetList::PSR_12);
-    $containerConfigurator->import(SetList::SYMFONY);
+    $ecsConfig->import(SetList::COMMON);
+    $ecsConfig->import(SetList::CLEAN_CODE);
+    $ecsConfig->import(SetList::PSR_12);
+    $ecsConfig->import(SetList::SYMFONY);
 };
