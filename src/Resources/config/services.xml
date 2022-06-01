@@ -24,5 +24,10 @@
         <service id="Tuzex\Ddd\Messenger\MessengerDomainEventBus">
             <argument type="service" id="tuzex.ddd.domain_event_bus"/>
         </service>
+
+        <service id="Tuzex\Ddd\Infrastructure\Integration\IntegrationEventBus" alias="Tuzex\Ddd\Messenger\MessengerIntegrationEventBus"/>
+        <service id="Tuzex\Ddd\Messenger\MessengerIntegrationEventBus">
+            <argument type="service" id="tuzex.ddd.integration_event_bus"/>
+        </service>
     </services>
 </container>

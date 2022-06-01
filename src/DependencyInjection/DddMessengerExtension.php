@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Tuzex\Ddd\Application\Domain\DomainEventHandler;
+use Tuzex\Ddd\Infrastructure\Integration\IntegrationEventHandler;
 
 final class DddMessengerExtension extends Extension implements PrependExtensionInterface
 {
@@ -41,9 +42,12 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
 
         $container->prependExtensionConfig('framework', [
             'messenger' => [
-                'default_bus' => $configs['messenger']['default_bus'] ?? 'tuzex.ddd.domain_command_bus',
+                'default_bus' => $configs['messenger']['default_bus'] ?? 'tuzex.ddd.integration_event_bus',
                 'buses' => [
                     'tuzex.ddd.domain_event_bus' => [
+                        'default_middleware' => 'allow_no_handlers',
+                    ],
+                    'tuzex.ddd.integration_event_bus' => [
                         'default_middleware' => 'allow_no_handlers',
                     ],
                 ],
@@ -66,16 +70,17 @@ final class DddMessengerExtension extends Extension implements PrependExtensionI
 
     private function registerHandlersForAutoconfiguration(ContainerBuilder $container): void
     {
-        $container->registerForAutoconfiguration(DomainCommandHandler::class)
-            ->addTag('tuzex.ddd.domain_command_handler')
-            ->addTag('messenger.message_handler', [
-                'bus' => 'tuzex.ddd.domain_command_bus',
-            ]);
+        $services = [
+            DomainEventHandler::class => 'domain_event',
+            IntegrationEventHandler::class => 'integration_event',
+        ];
 
-        $container->registerForAutoconfiguration(DomainEventHandler::class)
-            ->addTag('tuzex.ddd.domain_event_handler')
-            ->addTag('messenger.message_handler', [
-                'bus' => 'tuzex.ddd.domain_event_bus',
-            ]);
+        foreach ($services as $interface => $service) {
+            $container->registerForAutoconfiguration($interface)
+                ->addTag(sprintf('tuzex.ddd.%s_handler', $service))
+                ->addTag('messenger.message_handler', [
+                    'bus' => sprintf('tuzex.ddd.%s_bus', $service),
+                ]);
+        }
     }
 }

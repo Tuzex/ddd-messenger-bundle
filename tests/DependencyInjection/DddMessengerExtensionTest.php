@@ -14,7 +14,9 @@ use Tuzex\Ddd\Domain\Id\UniversalIds;
 use Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock;
 use Tuzex\Ddd\Infrastructure\Domain\Id\UniversalIdFactory;
 use Tuzex\Ddd\Infrastructure\Integration\IntegrationEventBus;
+use Tuzex\Ddd\Infrastructure\Integration\IntegrationEventHandler;
 use Tuzex\Ddd\Messenger\MessengerDomainEventBus;
+use Tuzex\Ddd\Messenger\MessengerIntegrationEventBus;
 use Tuzex\Timekeeper\SystemTimeService;
 use Tuzex\Timekeeper\TimeService;
 
@@ -56,6 +58,9 @@ final class DddMessengerExtensionTest extends TestCase
         return [
             'domainEventBus' => [
                 'busId' => 'tuzex.ddd.domain_event_bus',
+            ],
+            'integrationEventBus' => [
+                'busId' => 'tuzex.ddd.integration_event_bus',
             ],
         ];
     }
@@ -121,18 +126,18 @@ final class DddMessengerExtensionTest extends TestCase
             'domainEventHandler' => [
                 'id' => DomainEventHandler::class,
                 'tags' => [
-                    'tuzex.ddd.domain_command_handler' => [],
-                    'messenger.message_handler' => [
-                        'bus' => 'tuzex.ddd.domain_command_bus',
-                    ],
-                ],
-            ],
-            'domainEventHandler' => [
-                'id' => DomainEventHandler::class,
-                'tags' => [
                     'tuzex.ddd.domain_event_handler' => [],
                     'messenger.message_handler' => [
                         'bus' => 'tuzex.ddd.domain_event_bus',
+                    ],
+                ],
+            ],
+            'integrationEventHandler' => [
+                'id' => IntegrationEventHandler::class,
+                'tags' => [
+                    'tuzex.ddd.integration_event_handler' => [],
+                    'messenger.message_handler' => [
+                        'bus' => 'tuzex.ddd.integration_event_bus',
                     ],
                 ],
             ],
@@ -154,7 +159,7 @@ final class DddMessengerExtensionTest extends TestCase
         $serviceIds = [
             'clock' => SystemClock::class,
             'universalIds' => UniversalIdFactory::class,
-            'integrationEventBus' => MessengerIntegrationEventBusr::class,
+            'integrationEventBus' => MessengerIntegrationEventBus::class,
             'domainEventBus' => MessengerDomainEventBus::class,
             'timeService' => SystemTimeService::class,
         ];
@@ -181,7 +186,7 @@ final class DddMessengerExtensionTest extends TestCase
         $serviceAliases = [
             Clock::class => SystemClock::class,
             UniversalIds::class => UniversalIdFactory::class,
-            IntegrationEventBus::class => IntegrationEventBus::class,
+            IntegrationEventBus::class => MessengerIntegrationEventBus::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
             TimeService::class => SystemTimeService::class,
         ];
