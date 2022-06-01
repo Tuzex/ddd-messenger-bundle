@@ -7,15 +7,13 @@ namespace Tuzex\Bundle\Ddd\Messenger\Test\DependencyInjection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Tuzex\Bundle\Ddd\Messenger\DependencyInjection\DddMessengerExtension;
-use Tuzex\Ddd\Application\Domain\DomainCommandHandler;
 use Tuzex\Ddd\Application\Domain\DomainEventHandler;
-use Tuzex\Ddd\Application\DomainCommandBus;
 use Tuzex\Ddd\Application\DomainEventBus;
 use Tuzex\Ddd\Domain\Clock;
 use Tuzex\Ddd\Domain\Id\UniversalIds;
 use Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock;
 use Tuzex\Ddd\Infrastructure\Domain\Id\SymfonyUuidFactory;
-use Tuzex\Ddd\Messenger\MessengerDomainCommandBus;
+use Tuzex\Ddd\Infrastructure\Integration\IntegrationEventBus;
 use Tuzex\Ddd\Messenger\MessengerDomainEventBus;
 use Tuzex\Timekeeper\SystemTimeService;
 use Tuzex\Timekeeper\TimeService;
@@ -56,9 +54,6 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideBusIds(): array
     {
         return [
-            'domainCommandBus' => [
-                'busId' => 'tuzex.ddd.domain_command_bus',
-            ],
             'domainEventBus' => [
                 'busId' => 'tuzex.ddd.domain_event_bus',
             ],
@@ -123,8 +118,8 @@ final class DddMessengerExtensionTest extends TestCase
     public function provideHandlerSettings(): array
     {
         return [
-            'commandHandler' => [
-                'id' => DomainCommandHandler::class,
+            'domainEventHandler' => [
+                'id' => DomainEventHandler::class,
                 'tags' => [
                     'tuzex.ddd.domain_command_handler' => [],
                     'messenger.message_handler' => [
@@ -159,7 +154,7 @@ final class DddMessengerExtensionTest extends TestCase
         $serviceIds = [
             'clock' => SystemClock::class,
             'universalIds' => SymfonyUuidFactory::class,
-            'domainCommandBus' => MessengerDomainCommandBus::class,
+            'integrationEventBus' => MessengerIntegrationEventBusr::class,
             'domainEventBus' => MessengerDomainEventBus::class,
             'timeService' => SystemTimeService::class,
         ];
@@ -186,7 +181,7 @@ final class DddMessengerExtensionTest extends TestCase
         $serviceAliases = [
             Clock::class => SystemClock::class,
             UniversalIds::class => SymfonyUuidFactory::class,
-            DomainCommandBus::class => MessengerDomainCommandBus::class,
+            IntegrationEventBus::class => IntegrationEventBus::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
             TimeService::class => SystemTimeService::class,
         ];

@@ -17,10 +17,6 @@
         <service id="Tuzex\Ddd\Domain\Id\UniversalIds" alias="Tuzex\Ddd\Infrastructure\Domain\Id\SymfonyUuidFactory"/>
         <service id="Tuzex\Ddd\Infrastructure\Domain\Id\SymfonyUuidFactory"/>
 
-        <service id="Tuzex\Ddd\Application\DomainCommandBus" alias="Tuzex\Ddd\Messenger\MessengerDomainCommandBus"/>
-        <service id="Tuzex\Ddd\Messenger\MessengerDomainCommandBus">
-            <argument type="service" id="tuzex.ddd.domain_command_bus"/>
-        </service>
 
         <service id="Tuzex\Ddd\Application\DomainEventBus" alias="Tuzex\Ddd\Messenger\MessengerDomainEventBus"/>
         <service id="Tuzex\Ddd\Messenger\MessengerDomainEventBus">
