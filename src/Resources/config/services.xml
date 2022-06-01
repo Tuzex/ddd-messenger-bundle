@@ -13,10 +13,12 @@
         <service id="Tuzex\Ddd\Domain\Clock" alias="Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock"/>
         <service id="Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock"/>
 
-        <service id="Tuzex\Ddd\Domain\Identifiers" alias="Tuzex\Ddd\Domain\Id\UniversalIds"/>
-        <service id="Tuzex\Ddd\Domain\Id\UniversalIds" alias="Tuzex\Ddd\Infrastructure\Domain\Id\SymfonyUuidFactory"/>
-        <service id="Tuzex\Ddd\Infrastructure\Domain\Id\SymfonyUuidFactory"/>
+        <service id="Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidGenerator" alias="Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidGenerator\UuidV4Generator"/>
+        <service id="Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidGenerator\UuidV4Generator"/>
 
+        <service id="Tuzex\Ddd\Domain\Identifiers" alias="Tuzex\Ddd\Domain\Id\UniversalIds"/>
+        <service id="Tuzex\Ddd\Domain\Id\UniversalIds" alias="Tuzex\Ddd\Infrastructure\Domain\Id\UniversalIdFactory"/>
+        <service id="Tuzex\Ddd\Infrastructure\Domain\Id\UniversalIdFactory"/>
 
         <service id="Tuzex\Ddd\Application\DomainEventBus" alias="Tuzex\Ddd\Messenger\MessengerDomainEventBus"/>
         <service id="Tuzex\Ddd\Messenger\MessengerDomainEventBus">
