@@ -15,6 +15,11 @@ use Tuzex\Ddd\Infrastructure\Domain\Clock\SystemClock;
 use Tuzex\Ddd\Infrastructure\Domain\Id\UniversalIdFactory;
 use Tuzex\Ddd\Infrastructure\Integration\IntegrationEventBus;
 use Tuzex\Ddd\Infrastructure\Integration\IntegrationEventHandler;
+use Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidFactory;
+use Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidFactory\UuidV3Factory;
+use Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidFactory\UuidV5Factory;
+use Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidGenerator;
+use Tuzex\Ddd\Infrastructure\Support\Symfony\Uuid\UuidGenerator\UuidV4Generator;
 use Tuzex\Ddd\Messenger\MessengerDomainEventBus;
 use Tuzex\Ddd\Messenger\MessengerIntegrationEventBus;
 use Tuzex\Timekeeper\SystemTimeService;
@@ -162,6 +167,9 @@ final class DddMessengerExtensionTest extends TestCase
             'integrationEventBus' => MessengerIntegrationEventBus::class,
             'domainEventBus' => MessengerDomainEventBus::class,
             'timeService' => SystemTimeService::class,
+            'uuidV4Generator' => UuidV4Generator::class,
+            'uuidV3Factory' => UuidV3Factory::class,
+            'uuidV5Factory' => UuidV5Factory::class,
         ];
 
         foreach ($serviceIds as $serviceAlias => $serviceId) {
@@ -189,6 +197,8 @@ final class DddMessengerExtensionTest extends TestCase
             IntegrationEventBus::class => MessengerIntegrationEventBus::class,
             DomainEventBus::class => MessengerDomainEventBus::class,
             TimeService::class => SystemTimeService::class,
+            UuidGenerator::class => UuidV4Generator::class,
+            UuidFactory::class => UuidV5Factory::class,
         ];
 
         foreach ($serviceAliases as $serviceAlias => $serviceId) {
